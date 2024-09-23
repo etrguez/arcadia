@@ -1,3 +1,9 @@
+Lien du git : https://github.com/etrguez/arcadia
+Lien deployement : https://git.heroku.com/desolate-citadel-80124.git
+Lien trello : https://trello.com/b/Z5a33buO
+
+
+
 UTILISATEURS 
 
 jose@arcadia.fr mdp = josearcadia
