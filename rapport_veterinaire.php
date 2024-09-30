@@ -6,12 +6,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 3) {
     exit();
 }
 
-try {
-    $bdd = new PDO('mysql:host=localhost;port=3308;dbname=arcadia', 'root', '');
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+require_once 'config.php';
 
 $sql = "SELECT animal_id, prenom FROM animaux";
 $statement = $bdd->prepare($sql);
