@@ -6,7 +6,7 @@ if (isset($_POST['Se_connecter'])) {
         $username = ($_POST['username']);
         $password = $_POST['password'];
 
-        $bdd = new PDO('mysql:host=localhost;port=3308;dbname=arcadia', 'root', '');
+        require_once 'config.php';
         $statement = $bdd->prepare('SELECT * FROM utilisateurs WHERE username = :username');
         $statement->bindValue(':username', $username);
         $statement->execute();
