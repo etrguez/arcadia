@@ -21,7 +21,7 @@ try {
     
     $bdd = new PDO("mysql:host=$hostname;port=$port;dbname=$database;charset=utf8", $username, $password);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion réussie à la base de données.";
+    echo "";
 } catch (PDOException $e) {
     die('Erreur de connexion : ' . $e->getMessage());
 }
