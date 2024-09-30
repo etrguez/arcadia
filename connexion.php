@@ -9,18 +9,22 @@ if (isset($_POST['Se_connecter'])) {
         require 'config.php';
 
         try {
+           
             $statement = $bdd->prepare('SELECT * FROM utilisateurs WHERE username = :username');
             $statement->bindValue(':username', $username);
             $statement->execute();
             $user = $statement->fetch(PDO::FETCH_ASSOC);
 
+           
             if ($user && password_verify($password, $user['password'])) {
+          
                 $_SESSION['username'] = htmlspecialchars($user['username']);
                 $_SESSION['prenom'] = htmlspecialchars($user['prenom']);
                 $_SESSION['nom'] = htmlspecialchars($user['nom']);
                 $_SESSION['role'] = $user['role_id'];
                 $_SESSION['message_connexion'] = 'Bonjour ' . htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) . ', Vous êtes connecté !';
 
+               
                 if ($_SESSION['role'] == 1) {
                     header('Location: espace_admin.php');
                 } elseif ($_SESSION['role'] == 2) {
