@@ -2,17 +2,7 @@
 
 <?php
 
-$dsn = 'mysql:host=localhost;port=3308;dbname=arcadia';
-$username = 'root';
-$password = '';
-
-try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Connection failed: ' . $e->getMessage());
-}
-
+require_once 'config.php';
 
 $sql = 'SELECT habitats.nom, habitats.description, images.image_data, habitats.habitat_id
         FROM habitats 
