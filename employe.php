@@ -1,6 +1,7 @@
 <?php
 
 require_once 'utilisateur.php';
+require_once 'config.php';
 
 class Employe extends Utilisateur {
     private $role_id = 2; 
