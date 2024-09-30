@@ -6,7 +6,7 @@ if (isset($_POST['Se_connecter'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        // Assurez-vous que le chemin vers config.php est correct
+
         require_once 'config.php';
 
         try {
