@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config.php'
+require_once 'config.php';
 
 $sql = "SELECT * FROM avis WHERE isVisible = TRUE";
 $avis = $bdd->query($sql)->fetchAll(PDO::FETCH_ASSOC);
