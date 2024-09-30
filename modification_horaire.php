@@ -6,12 +6,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != '1') {
     exit();
 }
 
-try {
-    $bdd = new PDO('mysql:host=localhost;port=3308;dbname=arcadia', 'root', '');
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['type_jour']) && !empty($_POST['heure_ouverture']) && !empty($_POST['heure_fermeture'])) {
