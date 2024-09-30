@@ -1,15 +1,6 @@
 <?php
 
-$dsn = 'mysql:host=localhost;port=3308;dbname=arcadia';
-$username = 'root';
-$password = '';
-
-try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Connection failed: ' . $e->getMessage());
-}
+require_once 'config.php';
 
 $sql = 'SELECT services.nom, services.description, images.image_data
         FROM services 
