@@ -1,5 +1,7 @@
 <?php
 
+require_once 'config.php';
+
 class Utilisateur {
     protected $bdd;
     protected $username;
