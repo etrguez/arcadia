@@ -1,18 +1,13 @@
 <?php
 session_start();
 
-try {
-    $base_de_donnees = new PDO('mysql:host=localhost;port=3308;dbname=arcadia', 'root', '');
-    $base_de_donnees->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+require_once 'config.php';
 
 if (isset($_GET['habitat_id'])) {
     $habitat_id = $_GET['habitat_id'];
 
     $sql = "SELECT habitats.*, images.image_data FROM habitats LEFT JOIN images ON habitats.habitat_id = images.habitat_id WHERE habitats.habitat_id = :habitat_id";
-    $statement = $base_de_donnees->prepare($sql);
+    $statement = $bdd->prepare($sql);
     $statement->execute([':habitat_id' => $habitat_id]);
     $habitat = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -21,7 +16,7 @@ if (isset($_GET['habitat_id'])) {
                         FROM animaux 
                         LEFT JOIN races ON animaux.race_id = races.race_id 
                         WHERE animaux.habitat_id = :habitat_id";
-        $statement_animaux = $base_de_donnees->prepare($sql_animaux);
+        $statement_animaux = $bdd->prepare($sql_animaux);
         $statement_animaux->execute([':habitat_id' => $habitat_id]);
         $animaux = $statement_animaux->fetchAll(PDO::FETCH_ASSOC);
     }
