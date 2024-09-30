@@ -3,30 +3,38 @@ session_start();
 
 if (isset($_POST['Se_connecter'])) {
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
-        $username = ($_POST['username']);
+        $username = $_POST['username'];
         $password = $_POST['password'];
 
-        require_once 'config.php';
-        $statement = $bdd->prepare('SELECT * FROM utilisateurs WHERE username = :username');
-        $statement->bindValue(':username', $username);
-        $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        require 'config.php';
 
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['prenom'] = $user['prenom'];
-            $_SESSION['nom'] = $user['nom'];
-            $_SESSION['role'] = $user['role_id'];
-            $_SESSION['message_connexion'] = 'Bonjour ' . $user['prenom'] . ' ' . $user['nom'] . ', Vous êtes connecté !';
+        try {
+            $statement = $bdd->prepare('SELECT * FROM utilisateurs WHERE username = :username');
+            $statement->bindValue(':username', $username);
+            $statement->execute();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-            if ($_SESSION['role'] == 1) {
-                header('Location: espace_admin.php');
-            } elseif ($_SESSION['role'] == 2) {
-                header('Location: espace_employe.php');
-            } else  { header('Location: espace_veterinaire.php');
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['username'] = htmlspecialchars($user['username']);
+                $_SESSION['prenom'] = htmlspecialchars($user['prenom']);
+                $_SESSION['nom'] = htmlspecialchars($user['nom']);
+                $_SESSION['role'] = $user['role_id'];
+                $_SESSION['message_connexion'] = 'Bonjour ' . htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) . ', Vous êtes connecté !';
+
+                if ($_SESSION['role'] == 1) {
+                    header('Location: espace_admin.php');
+                } elseif ($_SESSION['role'] == 2) {
+                    header('Location: espace_employe.php');
+                } else {
+                    header('Location: espace_veterinaire.php');
+                }
+                exit();
+            } else {
+                $message = "Nom d'utilisateur ou mot de passe incorrect.";
             }
-        } else {
-            $message = "Nom d'utilisateur ou mot de passe incorrect.";
+        } catch (PDOException $e) {
+            // En production, évitez d'afficher des messages d'erreur détaillés
+            $message = 'Erreur de connexion à la base de données.';
         }
     } else {
         $message = "Veuillez remplir tous les champs.";
@@ -82,7 +90,7 @@ if (isset($_POST['Se_connecter'])) {
     <h2 class="text-center text-success mb-4">Connexion</h2>
     <p class="text-center text-muted">Cet espace est réservé au personnel du parc.</p>
     <?php if (isset($message)): ?>
-        <div class="alert alert-danger text-center"><?php echo ($message); ?></div>
+        <div class="alert alert-danger text-center"><?php echo htmlspecialchars($message); ?></div>
     <?php endif; ?>
     <form method="POST" class="mx-auto" style="max-width: 600px;">
         <div class="mb-3">
