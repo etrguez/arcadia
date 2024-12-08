@@ -7,7 +7,7 @@ require_once 'config.php';
 $sql = 'SELECT habitats.nom, habitats.description, images.image_data, habitats.habitat_id
         FROM habitats 
         JOIN images ON images.habitat_id = habitats.habitat_id';	
-$stmt = $pdo->query($sql);
+$stmt = $bdd->query($sql);
 ?>
 
 <!DOCTYPE html>
