@@ -4,8 +4,9 @@ require_once 'config.php';
 
 $sql = 'SELECT services.nom, services.description, images.image_data
         FROM services 
-        JOIN images ON images.service_id = services.service_id';	
-$stmt = $pdo->query($sql);
+        JOIN images ON images.service_id = services.service_id';
+
+$stmt = $bdd->query($sql);
 ?>
 
 <!DOCTYPE html>
